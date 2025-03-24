@@ -1,19 +1,28 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using NetCRM.Data;  // Twój kontekst bazy danych, jeœli u¿ywasz w³asnego
+using NetCRM.Data;  // Upewnij siÄ™, Å¼e masz poprawny namespace
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Dodanie us³ug Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+// Dodanie usÅ‚ug Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    // MoÅ¼esz tutaj skonfigurowaÄ‡ opcje Identity, np. wymagania dotyczÄ…ce haseÅ‚
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+})
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
-// Dodanie us³ug MVC
+// Dodanie usÅ‚ug MVC
 builder.Services.AddControllersWithViews();
 
-// Konfiguracja bazy danych (przyk³ad dla SQLite, dostosuj do swojego DB)
+// Konfiguracja bazy danych (przykÅ‚ad dla SQLite, dostosuj do swojego DB)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
@@ -25,13 +34,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseAuthentication();  // W³¹czenie autentykacji
-app.UseAuthorization();   // W³¹czenie autoryzacji
+app.UseAuthentication();  // WÅ‚Ä…czenie autentykacji
+app.UseAuthorization();   // WÅ‚Ä…czenie autoryzacji
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapRazorPages();  // W³¹cza strony Razor (logowanie, rejestracja itp.)
+app.MapRazorPages();  // WÅ‚Ä…cza strony Razor (logowanie, rejestracja itp.)
 
 app.Run();

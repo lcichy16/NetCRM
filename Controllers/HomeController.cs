@@ -1,33 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
-
-namespace NetCRM.Controllers
+using NetCRM.Data;
+public class HomeController : Controller
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class HomeController : ControllerBase
+    private readonly ApplicationDbContext _context;
+
+    public HomeController(ApplicationDbContext context)
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        _context = context;
+    }
 
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
+    public IActionResult Index()
+    {
+        var users = _context.Users.ToList(); // Przyk³ad pobierania u¿ytkowników
+        return View(users);
     }
 }
