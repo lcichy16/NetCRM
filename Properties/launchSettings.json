@@ -23,7 +23,6 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "swagger", // Możesz zmienić na inną stronę startową
       "applicationUrl": "https://localhost:5001", // Nowy port
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
