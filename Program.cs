@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using NetCRM.Data;  // Upewnij się, że masz poprawny namespace
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +14,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
 })
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()  // Upewnij się, że ApplicationDbContext jest poprawnie zdefiniowany
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
@@ -24,7 +23,7 @@ builder.Services.AddControllersWithViews();
 
 // Konfiguracja bazy danych (przykład dla SQLite, dostosuj do swojego DB)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))  // Sprawdź, czy masz tę konfigurację w appsettings.json
 );
 
 var app = builder.Build();
@@ -34,12 +33,19 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+// Używanie autentykacji i autoryzacji
 app.UseAuthentication();  // Włączenie autentykacji
 app.UseAuthorization();   // Włączenie autoryzacji
 
+// Konfiguracja routingu MVC
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Konfiguracja Razor Pages (dla logowania, rejestracji itd.)
+app.MapRazorPages();
+
+app.Run();
 
 app.MapRazorPages();  // Włącza strony Razor (logowanie, rejestracja itp.)
 

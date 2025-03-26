@@ -47,3 +47,133 @@ body {
     text-align: center;
     margin-top: auto; /* Wymusza, aby stopka by³a na dole strony */
 }
+
+/* Karty */
+.card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .card:hover {
+        background-color: #f1f1f1;
+    }
+
+.card-title {
+    font-size: 1.1rem;
+    display: inline-block;
+    max-width: 80%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Styl dla zakoñczonych zadañ */
+.card.completed .card-title {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.card.completed .card-body {
+    background-color: #d4edda; /* Kolor t³a dla ukoñczonych zadañ */
+}
+
+/* Stylowanie przycisków */
+.btn-sm {
+    margin: 0 5px;
+    font-size: 1.2rem;
+}
+
+.btn-success, .btn-danger {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* Ikony */
+.fas {
+    font-size: 1.5rem;
+}
+
+.text-success {
+    color: #28a745 !important; /* Zielony kolor */
+}
+
+.text-danger {
+    color: #dc3545 !important; /* Czerwony kolor */
+}
+
+.text-muted {
+    color: #6c757d !important; /* Szary kolor dla nieaktywnego */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f9f9f9;
+    position: relative;
+}
+
+/* Stylowanie ikon w przyciskach */
+.btn i {
+    font-size: 1.5rem;
+}
+
+.btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Wyrównanie przycisków */
+.float-right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+    /* Wyrównanie ikon */
+    .float-right i {
+        font-size: 1.8rem;
+        margin-right: 5px;
+    }
+
+/* Ulepszona responsywnoœæ dla kart */
+@media (max-width: 767px) {
+    .card {
+        margin-bottom: 15px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .btn-sm {
+        font-size: 1rem;
+    }
+}

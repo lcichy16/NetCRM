@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Strona Główna";
+    Layout = "_Layout";  
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Witaj, @User.Identity.Name!</h1>
+
+    <!-- Wyświetlanie kafelków -->
+    <div class="row">
+        <div class="col-md-2">
+            <!-- Link do akcji ToDo w kontrolerze Home -->
+            <a href="@Url.Action("ToDo", "Home")" class="card">
+                <div class="card-body">
+                    <h5 class="card-title">To-Do</h5>
+                    <p class="card-text">Zarządzaj swoimi zadaniami</p>
+                </div>
+            </a>
+        </div>
+        <!-- Można dodać inne kafelki, np. z zamówieniami, klientami, kalendarzem itp. -->
+        <div class="col-md-2">
+            <a href="#" class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kafel 2</h5>
+                    <p class="card-text">Opis</p>
+                </div>
+            </a>
+        </div>
+        <!-- Możesz dodać kolejne kafelki według potrzeby -->
+    </div>
+}
+else
+{
+    <h1>Witaj w NetCRM!</h1>
+    <p>NetCRM to innowacyjny system do zarządzania relacjami z klientami...</p>
+}
